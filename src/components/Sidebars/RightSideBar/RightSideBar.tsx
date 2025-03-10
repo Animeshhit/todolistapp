@@ -1,8 +1,5 @@
-
 function RightSideBar() {
-  return (
-    <div>RightSideBar</div>
-  )
+  return <></>;
 }
 
-export default RightSideBar
+export default RightSideBar;

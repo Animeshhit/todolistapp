@@ -1,10 +1,52 @@
 import Styled from "styled-components";
-import { AppGrid, Logo, Menu, Search } from "../../lib/assets";
+import {
+  AppGrid,
+  Logo,
+  Menu,
+  Search,
+  SearchWhite,
+  MenuWhite,
+  AppGridWhite,
+  Sun,
+  Moon,
+} from "../../lib/assets";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/UseTheme";
+import { Container } from "../shared/Container";
+import { toggleTheme } from "../../redux/slices/themeSlice";
 
-function Icon({ Image, Alt }: { Image: string; Alt: string }) {
+const IconButton = Styled.button`
+  border:none;
+  outline:none;
+  background:inherit;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+`;
+const NavbarWrapper = Styled.div`
+  padding:0.8rem 0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  .nav__links{
+    display:flex;
+    align-items:center;
+    gap:1.5rem;
+  }
+`;
+
+function Icon({
+  Image,
+  Alt,
+  OnClick,
+}: {
+  Image: string;
+  Alt: string;
+  OnClick?: React.MouseEventHandler<HTMLButtonElement>;
+}) {
   return (
     <>
-      <IconButton type="button">
+      <IconButton onClick={OnClick} type="button">
         <img src={Image} alt={Alt} />
       </IconButton>
     </>
@@ -12,40 +54,44 @@ function Icon({ Image, Alt }: { Image: string; Alt: string }) {
 }
 
 function Navbar() {
+  const theme = useAppSelector((state) => state.theme.theme);
+  const dispatch = useAppDispatch();
   return (
     <>
       <header>
-        <div className="container">
-          <div className="flex items-center justify-between">
+        <Container>
+          <NavbarWrapper>
             {/* Navbar left Container  */}
-            <NavbarLeft>
-              <Icon Image={Menu} Alt="nav_menu" />
+            <div className="navbar__left nav__links">
+              <Icon
+                Image={theme == "light" ? Menu : MenuWhite}
+                Alt="nav_menu"
+              />
               <Icon Image={Logo} Alt="DoIt" />
-            </NavbarLeft>
+            </div>
             {/* Navbar right Container  */}
-            <NavbarRight>
-              <Icon Image={Search} Alt="search" />
-              <Icon Image={AppGrid} Alt="app_grid" />
-              {/* <Icon Image={} */}
-            </NavbarRight>
-          </div>
-        </div>
+            <div className="navbar__right nav__links">
+              <Icon
+                Image={theme == "light" ? Search : SearchWhite}
+                Alt="search"
+              />
+              <Icon
+                Image={theme == "light" ? AppGrid : AppGridWhite}
+                Alt="app_grid"
+              />
+              <Icon
+                OnClick={() => {
+                  dispatch(toggleTheme());
+                }}
+                Image={theme == "light" ? Moon : Sun}
+                Alt="Theme"
+              />
+            </div>
+          </NavbarWrapper>
+        </Container>
       </header>
     </>
   );
 }
-
-const IconButton = Styled.button`
-
-
-`;
-
-const NavbarLeft = Styled.div`
- display:flex;
- 
-
-`;
-
-const NavbarRight = Styled.div``;
 
 export default Navbar;
