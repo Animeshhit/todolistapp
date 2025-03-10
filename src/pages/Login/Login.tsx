@@ -1,9 +1,12 @@
-import React from 'react'
+import Styled from "styled-components";
 
 function Login() {
-  return (
-    <div>Login</div>
-  )
+  return <Text>Hello world</Text>;
 }
 
-export default Login
+const Text = Styled.p`
+  color:${({ theme }) => theme.accent};
+  font-size:2rem;
+`;
+
+export default Login;
