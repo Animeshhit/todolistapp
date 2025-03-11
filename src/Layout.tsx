@@ -7,6 +7,10 @@ import Styled from "styled-components";
 
 const LayoutContainer = Styled.div`
   display:flex;
+  gap:2rem;
+  main{
+    flex:1;
+  }
 `;
 
 export default function Layout() {

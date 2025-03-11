@@ -1,5 +1,5 @@
 import Styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import {
   Calendar,
   ClipboardList,
@@ -79,6 +79,10 @@ const NavLinksWrapper = Styled.div`
     }
     color:${({ theme }) => theme.text};
   }
+  a.active{
+    background:#35793729;
+    color:#357937;    
+  }
 `;
 
 const NavLinks = [
@@ -100,10 +104,10 @@ function LeftSideBar() {
       </ProfileWrapper>
       <NavLinksWrapper>
         {NavLinks.map((link) => (
-          <Link to={link.href}>
+          <NavLink to={link.href}>
             <link.icon />
             <span>{link.text}</span>
-          </Link>
+          </NavLink>
         ))}
       </NavLinksWrapper>
       <NavLinksWrapper>

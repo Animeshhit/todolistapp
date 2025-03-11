@@ -10,7 +10,7 @@ import {
   Sun,
   Moon,
 } from "../../lib/assets";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks/UseTheme";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/UseRedux";
 import { Container } from "../shared/Container";
 import { toggleTheme } from "../../redux/slices/themeSlice";
 

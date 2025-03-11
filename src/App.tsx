@@ -5,7 +5,7 @@ import Register from "./pages/Register/Register";
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./lib/theme/Theme";
 import { GlobalStyles } from "./lib/theme/GlobalStyles";
-import { useAppSelector } from "./redux/hooks/UseTheme";
+import { useAppSelector } from "./redux/hooks/UseRedux";
 import Home from "./pages/Home/Home";
 
 function App() {

@@ -14,7 +14,12 @@ interface NotesState {
 // Function to retrieve initial notes from localStorage
 const getInitialNotes = (): Note[] => {
   const storedNotes = localStorage.getItem("notes");
-  return storedNotes ? JSON.parse(storedNotes) : [];
+  if (storedNotes) {
+    return JSON.parse(storedNotes);
+  } else {
+    localStorage.setItem("notes", "[]");
+    return [];
+  }
 };
 
 const initialState: NotesState = {
@@ -28,10 +33,12 @@ const notesSlice = createSlice({
     // Add a new note
     addNote: (state, action: PayloadAction<Note>) => {
       state.notes.push(action.payload);
+      localStorage.setItem("notes", JSON.stringify(state.notes));
     },
     // Remove a note by ID
     removeNote: (state, action: PayloadAction<string>) => {
       state.notes = state.notes.filter((note) => note.id !== action.payload);
+      localStorage.setItem("notes", JSON.stringify(state.notes));
     },
     // Toggle the completion status of a note by ID
     toggleStatus: (state, action: PayloadAction<string>) => {
@@ -39,6 +46,7 @@ const notesSlice = createSlice({
       if (note) {
         note.status = note.status === "completed" ? "pending" : "completed";
       }
+      localStorage.setItem("notes", JSON.stringify(state.notes));
     },
     // Toggle the starred status of a note by ID
     toggleStarred: (state, action: PayloadAction<string>) => {
@@ -46,6 +54,7 @@ const notesSlice = createSlice({
       if (note) {
         note.starred = !note.starred;
       }
+      localStorage.setItem("notes", JSON.stringify(state.notes));
     },
     // Update a note's task by ID
     updateNote: (
@@ -56,6 +65,7 @@ const notesSlice = createSlice({
       if (note) {
         note.task = action.payload.task;
       }
+      localStorage.setItem("notes", JSON.stringify(state.notes));
     },
   },
 });
